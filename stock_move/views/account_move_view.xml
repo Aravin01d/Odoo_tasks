@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+     <record id="account_move_form_inherit" model="ir.ui.view">
+            <field name="name">account.move.form.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                        <xpath expr="//field[@name='partner_id']" position="after">
+                             <group>
+                            <field name="source_loc_id">Source Location</field>
+                            <field name="destination_loc_id">Destination Location</field>
+                            <field name="picking_type_id">Picking Type</field>
+                             </group>
+                        </xpath>
+                <div name="button_box" position="inside">
+                    <button class="oe_stat_button" type="object" icon="fa-lines" name="action_get_stock_moves">Moves</button>
+                </div>
+            </field>
+     </record>
+    </data>
+</odoo>

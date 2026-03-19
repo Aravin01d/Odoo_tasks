@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_report_menu" model="ir.actions.act_window">
+    <field name="name">Book Report</field>
+    <field name="res_model">book.report.wizard</field>
+    <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_book_report_template" model="ir.actions.report">
+        <field name="name">Book Report</field>
+        <field name="model">book.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">library.report_book</field>
+        <field name="report_file">library.report_book</field>
+        <field name="print_report_name">'Library Management Report' </field>
+        <field name="binding_model_id" ref="model_book_report_wizard"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

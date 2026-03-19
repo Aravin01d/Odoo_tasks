@@ -1,0 +1,75 @@
+<odoo>
+
+    <record id="books_model_action" model="ir.actions.act_window">
+        <field name="name">Books</field>
+        <field name="res_model">books.model</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="book_list_view" model="ir.ui.view">
+        <field name="name">books.list</field>
+        <field name="model">books.model</field>
+        <field name="arch" type="xml">
+            <list decoration-success="status=='available'"
+            decoration-warning="status=='coming soon'"
+            decoration-danger="status=='unavailable'">
+                    <field name="title"/>
+                    <field name="genre_ids" widget="many2many_tags"/>
+                    <field name="price"/>
+                    <field name="status"/>
+                <field name="return_count"/>
+                </list>
+        </field>
+    </record>
+
+    <record id="book_form_view" model="ir.ui.view">
+        <field name="name">books.form</field>
+        <field name="model">books.model</field>
+        <field name="arch" type="xml">
+                <form string="Book Details">
+                    <h1><field name="title" nolabel="1" placeholder="Name"/></h1>
+            <field name="genre_ids" widget="many2many_tags" placeholder="Genre"/>
+                    <group>
+                        <group>
+                            <field name="book_id"/>
+                            <field name="isbn"/>
+                            <field name="author_id"/>
+                            <field name="publisher_id"/>
+                            <field name="status"/>
+                            <field name="cost"/>
+                            <field name="price"/>
+                        </group>
+                        <group>
+                            <field name="cover_image" widget="image"/>
+<!--                            <field name="product_id"/>-->
+                            <field name="return_count"/>
+<!--                            <field name="sale_orders_id"/>-->
+                        </group>
+                    </group>
+                </form>
+        </field>
+    </record>
+
+    <record id="books_model_search" model="ir.ui.view">
+   <field name="name">book.search</field>
+   <field name="model">books.model</field>
+   <field name="arch" type="xml">
+       <search>
+           <field name="title" string="Title"/>
+           <field name="author_id" string="Author"/>
+           <field name="genre_ids" string="Genre"/>
+           <field name="isbn" string="ISBN"/>
+             <group name="groupby">
+               <filter name="author_id" string="Author"
+                       context="{'group_by': 'author_id'}"/>
+                 <filter name="genre_ids" string="Genre"
+                       context="{'group_by': 'genre_ids'}"/>
+                 <filter name="publisher_id" string="Publisher"
+                       context="{'group_by': 'publisher_id'}"/>
+           </group>
+       </search>
+   </field>
+</record>
+
+</odoo>
+

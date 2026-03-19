@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+       <record id="cron_overdue_checking" model="ir.cron">
+           <field name="name">Overdue Checking</field>
+           <field name="model_id" ref="library.model_checkouts_model"/>
+           <field name="state">code</field>
+           <field name="code">model.overdue_checking()</field>
+           <field name="interval_number">1</field>
+           <field name="interval_type">days</field>
+           <field name="active" eval="True"/>
+       </record>
+
+       <record id="email_template_days_reminder" model="mail.template">
+           <field name="name">Due Date reminder email</field>
+           <field name="model_id" ref="library.model_checkouts_model"/>
+           <field name="subject">Due Date Reminder</field>
+           <field name="email_from">noreply@example.com</field>
+           <field name="email_to">{{object.email}}</field>
+           <field name="body_html" type="html">
+                   <p>Hi <t t-out="object.member_id.name"/></p>
+                   <p>You have <t t-out="object.rem_days"/> days to return book</p>
+                   <p><strong>Please make sure you return book on <t t-out="object.due_date"/></strong></p>
+                   <br/>
+                   <p>Best regards,<br/>Your library</p>
+           </field>
+       </record>
+
+       <record id="cron_due_date_reminder" model="ir.cron">
+           <field name="name">Due Date Reminder</field>
+           <field name="model_id" ref="library.model_checkouts_model"/>
+           <field name="state">code</field>
+           <field name="code">model.due_date_reminder()</field>
+           <field name="interval_number">1</field>
+           <field name="interval_type">days</field>
+           <field name="active" eval="True"/>
+       </record>
+
+   <record id="email_template_overdue_notice" model="mail.template">
+       <field name="name">Overdue Notice Email</field>
+       <field name="model_id" ref="library.model_checkouts_model"/>
+       <field name="subject">Overdue Notice</field>
+       <field name="email_from">noreply@example.com</field>
+       <field name="email_to">{{object.email}}</field>
+       <field name="body_html" type="html">
+               <p>Hi <t t-out="object.member_id.name"/></p>
+               <p>You are overdue</p>
+               <p><strong>Penalty amount is <t t-out="object.penalty"/> </strong></p>
+               <br/>
+               <p>Best regards,<br/>Your library</p>
+       </field>
+    </record>
+
+        <record id="cron_overdue_notice" model="ir.cron">
+               <field name="name">Overdue notice</field>
+               <field name="model_id" ref="library.model_checkouts_model"/>
+               <field name="state">code</field>
+               <field name="code">model.overdue_notice()</field>
+               <field name="interval_number">1</field>
+               <field name="interval_type">days</field>
+               <field name="active" eval="True"/>
+           </record>
+
+</data>
+</odoo>

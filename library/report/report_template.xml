@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <data>
+       <template id="report_book">
+           <t t-call="web.html_container">
+                   <t t-call="web.external_layout">
+                       <div class="page">
+                           <h1>Library Report</h1>
+<!--                           <p><b>Customer:</b><span t-esc="item['member_id']"/> </p>-->
+                           <div class="oe_structure"/>
+                           <t t-if="data['date']['member_id']">
+                               <p>Member: <t t-esc="data['date']['member_id'][1]"/></p>
+                           </t>
+                           <t t-if="data['date']['book_id']">
+                               <p>Book: <t t-esc="data['date']['book_id'][1]"/></p>
+                           </t>
+                           <t t-if="data['date']['checkout_date']">
+                               <p>Checkout Date: <t t-esc="data['date']['checkout_date']"/></p>
+                           </t>
+                           <t t-if="data['date']['genre_id']">
+                               <p>Genre: <t t-esc="data['date']['genre_id'][1]"/></p>
+                           </t>
+                           <t t-if="data['date']['return_date']">
+                               <p>Return Date: <t t-esc="data['date']['return_date']"/></p>
+                           </t>
+                               <table class="table table-sm">
+                                   <thead>
+                                       <tr>
+                                   <th>Reference ID</th>
+                                   <t t-if=" not data['date']['book_id']">
+                                       <th>Book</th></t>
+                                    <t t-if=" not data['date']['member_id']">
+                                        <th>Member</th></t>
+                                   <th>Author</th>
+                                   <t t-if="not data['date']['genre_id']">
+                                        <th>Genre</th></t>
+                                   <t t-if="not data['date']['checkout_date']">
+                                       <th>Checkout Date</th></t>
+                                   <t t-if="not data['date']['return_date']">
+                                       <th>Return Date</th></t>
+                                       </tr>
+                                   </thead>
+                                   <tbody>
+                                       <t t-foreach="data['report']" t-as="item">
+                                       <tr>
+                                           <td><span t-esc="item['checkout_id']"/></td>
+
+                                           <t t-if="not data['date']['book_id']">
+                                                <td><span t-esc="item['title']"/> </td></t>
+
+                                          <t t-if="not data['date']['member_id']">
+                                               <td><span t-esc="item['name']"/></td></t>
+
+                                           <td><span t-esc="item['author_name']"/> </td>
+
+                                           <t t-if=" not data['date']['genre_id']">
+                                               <td><span t-esc="item['genre_name']"/> </td></t>
+
+                                           <t t-if="not data['date']['checkout_date']">
+                                               <td><span t-esc="item['checkout_dte']"/></td></t>
+
+                                           <t t-if="not data['date']['return_date']">
+                                               <td><span t-esc="item['return_dte']"/></td></t>
+
+                                       </tr>
+                                       </t>
+                                   </tbody>
+                               </table>
+
+                       </div>
+                        </t>
+                   </t>
+       </template>
+   </data>
+</odoo>

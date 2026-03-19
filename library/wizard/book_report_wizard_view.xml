@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="action_book_report_wizard" model="ir.actions.act_window">
+        <field name="name">Book Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">book.report.wizard</field>
+        <field name="view_mode">form</field>
+<!--        <field name="view_id" ref="view_book_report_wizard"/>-->
+        <field name="target">new</field>
+    </record>
+
+    <record id="view_book_report_wizard" model="ir.ui.view">
+        <field name="name">view.book.report.wizard</field>
+        <field name="model">book.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Books Reports">
+                <h3><center>Filter Report</center></h3>
+                <group>
+                        <field name="member_id">Member</field>
+                        <field name="book_id">Book</field>
+                        <field name="genre_id">Genre</field>
+                        <field name="checkout_date">Checkout Date</field>
+                        <field name="return_date">Return Date</field>
+                </group>
+                <h3><center>Sort Report</center></h3>
+                <group>
+                     <field name="sort_by">Sort By</field>
+                     <field name="order_by">Order By</field>
+                </group>
+                <footer>
+                    <button string="Print PDF Report" class="btn-primary" name="action_print_report" type="object"/>
+                    <button string="Print XLSX Report" class="btn-primary" name="action_print_xlsx_report" type="object"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

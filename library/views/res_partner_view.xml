@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+         <record id="res_partner_form_inherit_books_allowed" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit.books.allowed</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                    <xpath expr="//field[@name='category_id']" position="after" name="action_view_books_allowed">
+                    <field name="books_allowed" />
+                </xpath>
+<!--                <xpath expr="//field[@name='books_allowed']" position="after" >-->
+<!--                    <field name="product_ids" widget="many2many_tags"/>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//field[@name='product_ids']" position="after">-->
+<!--                    <button class="btn-primary" type="object" name="action_recalculate">Recalculate</button>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//button[@name='action_recalculate']" position="after">-->
+<!--                    <button class="btn-primary" type="object" name="action_add_so">Add Sale Order</button>-->
+<!--                </xpath>-->
+            </field>
+         </record>
+
+         <record id="res_partner_form_inherit_max_late_returns" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit.max.late.returns</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                    <xpath expr="//field[@name='category_id']" position="after" >
+                    <field name="max_late_returns" />
+                </xpath>
+            </field>
+         </record>
+
+    <record id="res_partner_action_books" model="ir.actions.act_window">
+        <field name="name">Book Records</field>
+        <field name="res_model">checkoutlines.model</field>
+        <field name="view_mode">List,form</field>
+        <field name="context">{'module' : 'library'}</field>
+    </record>
+
+        <record id="res_partner_view_form" model="ir.ui.view">
+            <field name="name">res.partner.view.form.inherit.library</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//div[@name='button_box']" position="inside">
+                    <button class="oe_stat_button" type="object"
+                            icon="fa-book" name="action_view_library_records">
+                        <field string="Books" name="book_count" widget="statinfo"/>
+                    </button>
+                </xpath>
+                 <xpath expr="//div[@name='button_box']" position="inside">
+                    <button class="oe_stat_button" type="object"
+                             name="action_view_late_returns">
+                        <field string=" Late Returns" name="late_returns" widget="statinfo"/>
+                    </button>
+                </xpath>
+                  <xpath expr="//div[@name='button_box']" >
+                    <div class="oe_stat_button" type="object"
+                             name="action_view_total_penalty">
+                        <field string="Total Penalty" name="total_penalty" widget="statinfo"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+
+</odoo>

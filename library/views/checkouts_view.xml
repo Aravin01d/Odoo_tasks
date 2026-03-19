@@ -1,0 +1,102 @@
+<odoo>
+
+    <record id="checkouts_model_action" model="ir.actions.act_window">
+    <field name="name">Checkouts</field>
+    <field name="res_model">checkouts.model</field>
+    <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="checkouts_list_view" model="ir.ui.view">
+    <field name="name">checkouts.list</field>
+    <field name="model">checkouts.model</field>
+    <field name="arch" type="xml">
+        <list>
+            <field name="book_ids"/>
+            <field name="member_id"/>
+            <field name="checkout_date"/>
+            <field name="return_date"/>
+            <field name="status"/>
+            <field name="is_late"/>
+        </list>
+    </field>
+    </record>
+
+<!--    <record id="invoice_view_form" model="ir.ui.view">-->
+<!--            <field name="name">invoice.view.form</field>-->
+<!--            <field name="model">checkouts.model</field>-->
+<!--&lt;!&ndash;            <field name="inherit_id"></field>&ndash;&gt;-->
+<!--            <field name="arch" type="xml">-->
+<!--                <form>-->
+<!--                     <div expr="//div[@name='button_box']" position="inside">-->
+<!--                    <button class="oe_stat_button" type="object" string="Invoice"-->
+<!--                            icon="fa-bill" action="action_get_invoice">-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--                </form>-->
+<!--            </field>-->
+<!--    </record>-->
+
+    <record id="checkouts_form_view" model="ir.ui.view">
+        <field name="name">checkouts.form</field>
+        <field name="model">checkouts.model</field>
+        <field name="arch" type="xml">
+            <form>
+                 <div expr="//div[@name='button_box']" position="inside">
+                    <button class="oe_stat_button" type="object" string="Invoice"
+                            icon="fa-book" name="action_view_invoice" invisible="status == 'draft' or status == 'checked out' or status =='overdue'">
+                    </button>
+                 </div>
+                <header>
+                   <button name="action_draft" string="Draft"
+                           class="oe_highlight" type="object" invisible="status == 'draft' or status == 'checked out' or status =='overdue' or status =='returned' or status =='cancelled' "/>
+                   <button name="action_confirm" string="Confirm"
+                           class="oe_highlight" type="object" invisible="status == 'checked out' or status =='overdue' or status =='returned' or status =='cancelled' "/>
+                   <button name="action_return" string="Return"
+                           class="oe_highlight" type="object" invisible="status =='cancelled' or status == 'returned' or status == 'draft'"/>
+                   <button name="action_cancel" string="Cancel"
+                           class="oe_highlight" type="object" invisible="status == 'cancelled' "/>
+<!--or status == 'returned'-->
+                    <button name="action_show" string="SHOW" class="oe_highlight" type="object" invisible="true"/>
+
+                    <field name="status" widget="statusbar" statusbar_visible="draft,checked out,returned,overdue"/>
+                </header>
+                <h1><field name="checkout_id" nolabel="1"/></h1>
+                <group>
+                    <group>
+                        <field name="member_id"/>
+                        <field name="number"/>
+                        <field name="email"/>
+                        <field name="due_date"/>
+                        <field name="return_date"/>
+                        <field name="invoice_id"/>
+                    </group>
+                    <group>
+                        <field name="payment_state"/>
+                        <field name="checkout_date"/>
+                        <field name="penalty"/>
+                        <field name="rem_days" invisible="true"/>
+                        <field name="is_late"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page string="Book Details">
+                        <field name="book_ids">
+                            <list editable="bottom">
+                                <control>
+                                    <create string="Add a book"/>
+                                </control>
+                                <field name="book_line_id" domain="[('status','=','available')]"/>
+                                <field name="price" />
+                            </list>
+                        </field>
+                    </page>
+                </notebook>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+</odoo>
+
+<!--widget="many2many_tags"-->
+

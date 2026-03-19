@@ -1,0 +1,37 @@
+<!--<odoo>-->
+<odoo>
+
+    <record id="product_menu_action" model="ir.actions.act_window">
+    <field name="name">Select Product</field>
+    <field name="res_model">product.menu</field>
+    <field name="view_mode">form</field>
+    </record>
+
+        <record id="view_product_wizard" model="ir.ui.view">
+            <field name="name">view.product.wizard</field>
+            <field name="model">product.menu</field>
+            <field name="arch" type="xml">
+                    <form string="Products">
+                        <group>
+                            <field name="product_ids"/>
+                        </group>
+                        <group>
+                            <field name="fixed_price" class="oe_inline"/>
+                                <button name="action_update_fixed" string="Update Price" class="oe_highlight" type="object"/>
+                        </group>
+                        <group>
+                            <field name="percentage_price" widget="percentage" class="oe_inline"/>
+                                <button name="action_update_percentage" string="Update Price" class="oe_highlight" type="object"/>
+                        </group>
+                    </form>
+            </field>
+        </record>
+
+</odoo>
+
+
+<!--   </form>-->
+<!--    </field>-->
+<!--    </record>-->
+
+<!--</odoo>-->

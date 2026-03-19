@@ -1,0 +1,28 @@
+<odoo>
+    <menuitem id="library_menu_root" name="Library">
+
+        <menuitem id="library_first_level_menu" name="Books" sequence="1">
+            <menuitem id="books_model_menu_action" action="books_model_action" name="Books" sequence="1"/>
+            <menuitem id="authors_model_menu_action" action="authors_model_action" name="Authors" sequence="2"/>
+            <menuitem id="publishers_model_menu_action" action="publishers_model_action" name="Publishers" sequence="3"/>
+            <menuitem id="genres_model_menu_action" action="genres_model_action" name="Genres" sequence="4"/>
+        </menuitem>
+
+        <menuitem id="library_second_level_menu" name="Checkout" sequence="2">
+            <menuitem id="checkouts_model_menu_action" action="checkouts_model_action" name="Checkout">
+            </menuitem>
+        </menuitem>
+
+        <menuitem id="library_fourth_level_menu" name="Report" sequence="4">
+            <menuitem id="book_report_action" action="action_book_report_wizard" name="Book Borrow Report"/>
+        </menuitem>
+
+<!--        <m
+enuitem id="products_menu" name="products" sequence="6">-->
+<!--            <menuitem id="products_action" action="product_menu_action" name="Products Menu"/>-->
+<!--        </menuitem>-->
+    </menuitem>
+</odoo>
+
+<!--groups="librarian_access,library_assistant_access-->
+<!--action="book_report_action"-->

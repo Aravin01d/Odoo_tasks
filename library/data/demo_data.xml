@@ -1,0 +1,32 @@
+
+<odoo noupdate="1">
+
+    <record id="demo_data_1" model="genres.model">
+        <field name="genre_name">Fiction</field>
+    </record>
+    <record id="demo_data_2" model="genres.model">
+        <field name="genre_name">Non-fiction</field>
+    </record>
+    <record id="demo_data_3" model="genres.model">
+        <field name="genre_name">Thriller</field>
+    </record>
+    <record id="demo_data_4" model="genres.model">
+        <field name="genre_name">Novel</field>
+    </record>
+
+    <record id="penalty_product" model="product.product">
+        <field name="name">Penalty</field>
+        <field name="list_price">10.0</field>
+        <field name="standard_price">10.0</field>
+        <field name="type">service</field>
+    </record>
+
+    <record id="delivery_product" model="product.product">
+        <field name="name">Delivery Product</field>
+        <field name="list_price">99.0</field>
+        <field name="standard_price">99.0</field>
+        <field name="type">service</field>
+    </record>
+
+</odoo>
+
