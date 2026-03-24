@@ -8,15 +8,22 @@
             <field name="arch" type="xml">
                         <xpath expr="//field[@name='partner_id']" position="after">
                              <group>
-                            <field name="source_loc_id">Source Location</field>
-                            <field name="destination_loc_id">Destination Location</field>
-                            <field name="picking_type_id">Picking Type</field>
+                            <field name="source_loc_id" readonly="state=='posted'" >Source Location</field>
+                            <field name="destination_loc_id" readonly="state=='posted'" >Destination Location</field>
+                            <field name="picking_type_id" readonly="state=='posted'" >Picking Type</field>
                              </group>
                         </xpath>
+
+                    <div name="button_box" position="inside">
+                    <button class="oe_stat_button" type="object" icon="fa-bars" name="action_get_stock_moves" invisible="move_type == 'out_refund' or state == 'draft' or not picking_id">Moves</button>
+                </div>
                 <div name="button_box" position="inside">
-                    <button class="oe_stat_button" type="object" icon="fa-lines" name="action_get_stock_moves">Moves</button>
+                    <button class="oe_stat_button" type="object" icon="fa-arrow-left" name="action_get_reverse_stock_moves" invisible="move_type == 'out_invoice' or state == 'draft' or not rev_picking_id">Reversed Moves</button>
                 </div>
             </field>
      </record>
     </data>
 </odoo>
+
+
+<!--invisible="state!=done"-->
