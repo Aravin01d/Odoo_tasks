@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+     <record id="employee_loan_action" model="ir.actions.act_window">
+        <field name="name">Employee Loan</field>
+        <field name="res_model">employee.loan</field>
+        <field name="view_mode">list,form</field>
+    </record>
+     <record id="employee_loan_list_view" model="ir.ui.view">
+        <field name="name">employee.loan.list</field>
+        <field name="model">employee.loan</field>
+        <field name="arch" type="xml">
+            <list>
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="loan_amount"/>
+                    <field name="installment_count"/>
+                    <field name="state"/>
+                </list>
+        </field>
+    </record>
+
+     <record id="employee_loan_form_view" model="ir.ui.view">
+        <field name="name">employee.loan.form</field>
+        <field name="model">employee.loan</field>
+        <field name="arch" type="xml">
+                <form string="Employee Loan Details">
+                     <div name="button_box" class="oe_button_box">
+                            <button class="oe_stat_button" type="object"
+                                    name="action_view_installments"
+                                    icon="fa-book">
+                                <field string="Installments" name="loan_line_count" widget="statinfo"/>
+                            </button>
+                    </div>
+                    <header>
+                   <button name="action_draft" string="Draft"
+                           class="oe_highlight" type="object" invisible="1"/>
+                   <button name="action_approved" string="Approve Loan"
+                           class="oe_highlight" type="object"/>
+                   <button name="action_ongoing" string="Ongoing"
+                           class="oe_highlight" type="object" invisible="1"/>
+                   <button name="action_paid" string="Paid"
+                           class="oe_highlight" type="object"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,approved,ongoing,paid"/>
+                    </header>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="employee_id"/>
+                            <field name="loan_amount"/>
+                            <field name="installment_count"/>
+                            <field name="installment_amount"/>
+                            <field name="total_payable"/>
+                            <field name="loan_line_ids"/>
+                            <field name="paid_amount"/>
+                            <field name="balance_amount"/>
+                             <button name="generate_installments"
+                                string="Generate Installments"
+                                class="oe_highlight"
+                                type="object"
+                                invisible="state=='draft' or state=='ongoing' or state=='paid'">
+                             </button>
+                             <button name="pay_installment"
+                                    string="Pay Installment"
+                                    class="oe_highlight"
+                                    type="object"
+                                    invisible="state=='draft' or state=='approved' or state=='paid'">
+                             </button>
+                        </group>
+                    </group>
+                </form>
+        </field>
+    </record>
+</odoo>
