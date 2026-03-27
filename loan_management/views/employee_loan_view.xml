@@ -35,11 +35,11 @@
                    <button name="action_draft" string="Draft"
                            class="oe_highlight" type="object" invisible="1"/>
                    <button name="action_approved" string="Approve Loan"
-                           class="oe_highlight" type="object"/>
+                           class="oe_highlight" type="object" invisible=" state == 'approved' or state == 'ongoing' or state == 'paid' "/>
                    <button name="action_ongoing" string="Ongoing"
                            class="oe_highlight" type="object" invisible="1"/>
                    <button name="action_paid" string="Paid"
-                           class="oe_highlight" type="object"/>
+                           class="oe_highlight" type="object" invisible="1"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,approved,ongoing,paid"/>
                     </header>
                     <group>

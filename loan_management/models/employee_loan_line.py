@@ -1,6 +1,7 @@
 from odoo import api, fields, models
 
 class EmployeeLoanLine(models.Model):
+    """Employee Loan Line Model"""
     _name = 'employee.loan.line'
     _description='Employee Loan Line'
 
