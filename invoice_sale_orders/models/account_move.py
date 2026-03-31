@@ -14,46 +14,36 @@ class AccountMove(models.Model):
     @api.onchange('related_so_ids')
     def onchange_so(self):
         """Function to update invoice lines."""
+        self.update({
+            "invoice_line_ids": [fields.Command.clear()]
+        })
         invoice_line = []
         sale_invoice_ids = []
         if self.related_so_ids:
             for sales in self.related_so_ids:
                     for item in sales.order_line:
-                        print("Order line id:",item.id)
-                        invoice_line += [(Command.create({
-                            "product_id":item.product_id.id,
-                            "quantity":item.product_uom_qty,
-                            "price_unit":item.price_unit,
+                        self.update({
+                            'invoice_line_ids':[
+                                Command.create({
+                                    'product_id':item.product_id.id,
+                                    'quantity':item.product_uom_qty,
+                                    'price_unit':item.price_unit,
+                                })
+                            ]
                         })
-                        )]
-                        # for lines in self.invoice_line_ids:
-                        #     sale_invoice_ids += [(Command.create({
-                        #             "order_line_id":item.id,
-                        #             "invoice_line_id":lines.id
-                        #     }))]
-            # print("Sale Invoice IDS:",sale_invoice_ids)
-            for item in invoice_line:
-                self.update({
-                    "invoice_line_ids": [fields.Command.clear()]
-                })
-                self.update({
-                    "invoice_line_ids":[lines for lines in invoice_line]
-                })
-            for i in self.invoice_line_ids:
-                # print("Invoice Line Ids:",i)
-                sale_invoice_ids += [(Command.create({
-                    # "order_line_id": item,
-                    "invoice_line_id": i.id
-                }))]
-            print("Sale Invoice IDs:",sale_invoice_ids)
+            # for i in self.invoice_line_ids:
+            #     print("Line ids:",i.ids)
+            #     print("Line ID:",i.id)
+            #     print("Line:",i)
+                            # item.invoice_lines=i.id
+                # print("Sale orderline invoice_lines: ",item.invoice_lines)
+                # print("Invoice line IDs:",i.id)
 
-                # self.env['sale.order.line'].update({
-                #     "invoice_lines":[line for line in sale_invoice_ids]
-                # })
         else:
             self.update({
                 "invoice_line_ids":[fields.Command.clear()]
             })
+
 
         # for i in self:
         #     print("Invoice line ids:",i.invoice_line_ids)
@@ -61,10 +51,17 @@ class AccountMove(models.Model):
     def action_post(self):
         """Function to update invoiced quantity in sale order lines"""
         res=super().action_post()
+        for i in self.invoice_line_ids:
+            if self.related_so_ids:
+                for sales in self.related_so_ids:
+                    for item in sales.order_line:
+                        item.invoice_lines=i
+            # print("Line ids:", i.ids)
+            # print("Line ID:", i.id)
+            # print("Line:", i)
         if self.related_so_ids:
             for ids in self.related_so_ids:
                 for items in ids.order_line:
-                    print(items.invoice_lines)
                     items.qty_invoiced=items.product_uom_qty
 
         return res
@@ -76,3 +73,26 @@ class AccountMove(models.Model):
         #         ids.invoice_status = 'no'
 
  # ids.invoice_status='no'
+
+
+# print("Order line id:",item.id)
+# invoice_line += [(Command.create({
+#     "product_id":item.product_id.id,
+#     "quantity":item.product_uom_qty,
+#     "price_unit":item.price_unit,
+# })
+# )]
+# sale_invoice_ids += [(Command.create({
+#     "invoice_line_id":
+# }))]
+# for item in invoice_line:
+#     self.update({
+#         "invoice_line_ids": [fields.Command.clear()]
+#     })
+#     self.update({
+#         "invoice_line_ids":[lines for lines in invoice_line]
+#     })
+
+# self.env['sale.order.line'].update({
+#     "invoice_lines":[line for line in sale_invoice_ids]
+# })
