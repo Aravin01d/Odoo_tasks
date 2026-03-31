@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+     <record id="fleet_service_action" model="ir.actions.act_window">
+        <field name="name">Fleet Service</field>
+        <field name="res_model">fleet.service.order</field>
+        <field name="view_mode">list,form</field>
+    </record>
+     <record id="fleet_service_order_list_view" model="ir.ui.view">
+        <field name="name">fleet.service.order.list</field>
+        <field name="model">fleet.service.order</field>
+        <field name="arch" type="xml">
+            <list>
+                    <field name="name"/>
+                    <field name="vehicle_id"/>
+                    <field name="technician_id"/>
+                    <field name="service_date"/>
+                    <field name="state"/>
+<!--                    <field name="part_ids"/>-->
+<!--                     <field name="checklist_ids"/>-->
+                </list>
+        </field>
+    </record>
+
+     <record id="fleet_service_order_form_view" model="ir.ui.view">
+        <field name="name">fleet.service.order.form</field>
+        <field name="model">fleet.service.order</field>
+        <field name="arch" type="xml">
+                <form string="Fleet service order">
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,in progress,done,cancelled"/>
+                    <sheet>
+                    <group>
+                        <group>
+                    <field name="name"/>
+                    <field name="vehicle_id"/>
+                    <field name="technician_id"/>
+                    <field name="service_date"/>
+                    <field name="parts_total"/>
+                    <field name="labour_cost"/>
+                    <field name="grand_total"/>
+                    <field name="checklist_progress"/>
+                    </group>
+                    </group>
+
+                     <notebook>
+                    <page string="Service order part">
+                        <field name="part_ids">
+                            <list editable="bottom">
+                                <control>
+                                    <create string="Add"/>
+                                </control>
+
+                                <field name="product_id" />
+                                <field name="quantity"/>
+                                <field name="unit_price" />
+                            </list>
+                        </field>
+                    </page>
+                    <page string="Service order checklist">
+                        <field name="checklist_ids">
+                            <list editable="bottom">
+                                <control>
+                                    <create string="Add"/>
+                                </control>
+                                <field name="task_name" />
+                                <field name="is_done"/>
+                                <field name="note" />
+                            </list>
+                        </field>
+                    </page>
+                </notebook>
+                    </sheet>
+                </form>
+        </field>
+    </record>
+</odoo>
