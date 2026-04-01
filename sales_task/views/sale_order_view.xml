@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_sale_order" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@name='other_information']" position="after">
+                        <page string="Delivery info" name="delivery_info">
+                            <group>
+                            <field name="delivery_remark" string="Delivery Remark">Delivery Remark</field>
+                            <field name="is_urgent_delivery" string="Urgent Delivery">Is Urgent Delivery</field>
+                            <field name="preferred_delivery_time" string="Preferred Delivery Time">Preferred Delivery Time</field>
+                            </group>
+                        </page>
+                </xpath>
+                <xpath expr="//field[@name='preferred_delivery_time']" position="attributes">
+                    <attribute name="invisible">is_urgent_delivery==False</attribute>
+                </xpath>
+                <xpath expr="//header" position="inside">
+                    <button name="action_approve_discount" type="object">Approve Discount</button>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <group>
+                    <field name="discount_approved">Discount Approved</field>
+                        <field name="discount_approved_by">Discount Approved By</field>
+                           </group>
+                </xpath>
+            </field>
+         </record>
+    </data>
+</odoo>
