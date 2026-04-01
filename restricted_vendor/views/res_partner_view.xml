@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+     <data>
+        <record id="res_partner_form_inherit" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                    <xpath expr="//field[@name='parent_id']" position="after">
+                        <field name="is_restricted"/>
+                        <field name="restricted_count"/>
+                    </xpath>
+                <xpath expr="//field[@name='restricted_count']" position="attributes">
+                    <attribute name="invisible">is_restricted==False</attribute>
+                </xpath>
+            </field>
+        </record>
+     </data>
+</odoo>
