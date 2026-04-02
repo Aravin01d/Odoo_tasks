@@ -1,11 +1,9 @@
-from email.policy import default
-
-from odoo import fields, models, api
+from odoo import fields, models, api, _
 
 from odoo.exceptions import ValidationError
 
 class SaleOrder(models.Model):
-    _inherit = "sale.order"
+    _inherit = ['sale.order']
 
     delivery_remark = fields.Text(string="Delivery Remark")
     is_urgent_delivery = fields.Boolean(string="Is Urgent Delivery")
@@ -16,27 +14,18 @@ class SaleOrder(models.Model):
     ],
     string="Preferred Delivery Time")
     discount_approved = fields.Boolean(string="Discount Approved")
-    discount_approved_by = fields.Many2one("res.users",string="Discount Approved By")
+    discount_approved_by = fields.Many2one("res.users",string="Discount Approved By",readonly=True)
 
-    # default = lambda self: self.env.user,
     def action_approve_discount(self):
         for rec in self:
-            print(rec.order_line.mapped('discount'))
-            disc = rec.order_line.mapped('discount')
-            for i in disc:
-                if i > 0 :
-                    pass
-                else:
-                    raise ValidationError("Atleast one discount need be there")
+            # print(rec.order_line.mapped('discount'))
+            discounts = rec.order_line.mapped('discount')
+            res = any(value > 0 for value in discounts)
+            if res == False:
+                raise ValidationError("Atleast one discount needed.")
+            rec.discount_approved = True
+            rec.discount_approved_by = self.user_id
+            self.message_post(body=_("Discount approved by %s",self.user_id.name))
 
-            # print(rec.discount)
-        # print(lines)
-        # print("ok")
-
-    @api.onchange("discount_approved")
-    def onchange_discount_approved(self):
-        self.discount_approved_by = lambda self: self.env.user
-
-
-
-
+    # def message_post(self, body):
+    #     pass
