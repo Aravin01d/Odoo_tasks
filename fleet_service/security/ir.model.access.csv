@@ -2,3 +2,4 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_fleet_service_order,access.fleet.service.order,model_fleet_service_order,base.group_user,1,1,1,1
 access_fleet_service_order_checklist,access.fleet.service.order.checklist,model_fleet_service_order_checklist,base.group_user,1,1,1,1
 access_fleet_service_order_part,access.fleet.service.order.part,model_fleet_service_order_part,base.group_user,1,1,1,1
+access_checklist_type,access.checklist.type,model_checklist_type,base.group_user,1,1,1,1

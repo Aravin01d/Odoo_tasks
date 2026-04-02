@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="hr_employee_form_inherit" model="ir.ui.view">
+            <field name="name">hr.employee.form.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='work_email']" position="after">
+                    <group>
+                        <field name="is_available_technician">Is Available Technician</field>
+                    </group>
+                    <group>
+                        <field name="vehicle_ids" widget="many2many_tags">Vehicles</field>
+                   </group>
+                </xpath>
+                <xpath expr="//field[@name='vehicle_ids']" position="attributes">
+                    <attribute name="invisible">is_available_technician==False</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

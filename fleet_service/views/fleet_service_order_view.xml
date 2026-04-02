@@ -26,8 +26,16 @@
         <field name="model">fleet.service.order</field>
         <field name="arch" type="xml">
                 <form string="Fleet service order">
-
+                    <header>
+                   <button name="action_confirm" string="Confirm"
+                           class="oe_highlight" type="object"/>
+                   <button name="action_start_service" string="Start Service"
+                           class="oe_highlight" type="object" invisible="state=='draft'"/>
+                   <button name="action_cancel" string="Cancel"
+                           class="oe_highlight" type="object" invisible="state=='done'"/>
+                    </header>
                         <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,in progress,done,cancelled"/>
+
                     <sheet>
                     <group>
                         <group>
@@ -39,8 +47,11 @@
                     <field name="labour_cost"/>
                     <field name="grand_total"/>
                     <field name="checklist_progress"/>
+                    <field name="type_ids" widget="many2many_tags"/>
+                            <button name="action_generate_checklist" string="Generate Checklist"
+                                    class="oe_highlight" type="object" invisible=" state!= 'confirmed' "/>
                     </group>
-                    </group>
+                        </group>
 
                      <notebook>
                     <page string="Service order part">
