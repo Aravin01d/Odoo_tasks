@@ -11,6 +11,13 @@
                         <field name="total_sold_quantity"/>
                          <field name="minimum_sale_price"/>
                         <field name="maximum_sale_price"/>
+
+                    </xpath>
+                    <xpath expr="//div[@name='button_box']" position="inside">
+                    <button class="oe_stat_button" type="object"
+                            icon="fa-book" name="action_view_top_sales">
+                        <field string="Sales of MSP" name="cos" widget="statinfo"/>
+                    </button>
                     </xpath>
             </field>
         </record>
