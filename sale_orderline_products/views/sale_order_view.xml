@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="sale_order_view_form" model="ir.ui.view">
+        <field name="name">sale.order.view.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="product_variant_ids" widget="many2many_tags"
+                       invisible="state!='draft'"/>
+                <field name="variant_quantity" invisible="state!='draft'"/>
+                <button class="btn-primary" type="object"
+                        name="action_add_products" invisible="state!='draft'">
+                    Add Products
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>
