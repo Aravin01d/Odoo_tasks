@@ -1,0 +1,8 @@
+<odoo>
+    <record id="proptag_model_action" model="ir.actions.act_window">
+    <field name="name">Property Tags</field>
+    <field name="res_model">proptag.model</field>
+    <field name="view_mode">list,form</field>
+</record>
+</odoo>
+

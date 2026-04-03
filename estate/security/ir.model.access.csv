@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_property_model,access.property.model,model_property_model,base.group_user,1,1,1,1
+access_property_type_model,access.proptype.model,model_proptype_model,base.group_user,1,1,1,1
+access_property_tag_model,access.proptag.model,model_proptag_model,base.group_user,1,1,1,1
+access_property_offer_model,access.propoffer.model,model_propoffer_model,base.group_user,1,1,1,1

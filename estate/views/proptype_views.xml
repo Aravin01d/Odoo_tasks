@@ -1,0 +1,7 @@
+<odoo>
+    <menuitem id="pproperty_menu_root" name="Real Estate">
+    <menuitem id="proptype_first_level_menu" name="Settings">
+            <menuitem id="proptype_menu_action" action="proptype_model_action" name="Property Types"/>
+    </menuitem>
+    </menuitem>
+</odoo>
